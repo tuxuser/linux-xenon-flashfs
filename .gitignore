@@ -1,0 +1,12 @@
+*.ko
+*.o
+*.mod*
+.*.cmd
+*.symvers
+modules.order
+*.d
+__pycache__/
+flashfs
+*-ppc
+test_nand_hw
+images

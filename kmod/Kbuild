@@ -1,0 +1,10 @@
+obj-m += xenon_sfcx.o xenon_flashfs.o
+
+xenon_sfcx-y := sfcx/sfcx_core.o sfcx/sfcx_nand.o sfcx/sfcx_emmc.o \
+	../hw/emmc_hw.o ../hw/nand_hw.o
+xenon_flashfs-y := fs/flashfs_module.o fs/flashfs_dev.o \
+	../lib/flashfs_io.o ../lib/flashfs_mount.o ../lib/flashfs_spare.o \
+	../lib/flashfs_table.o ../lib/flashfs_write.o ../lib/wr_emmc.o \
+	../lib/wr_nand.o ../lib/sha1.o
+
+ccflags-y += -I$(src)/sfcx -I$(src)/fs -I$(src)/../lib -I$(src)/../hw -mno-altivec

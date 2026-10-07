@@ -1,0 +1,19 @@
+--- a/arch/powerpc/platforms/xenon/interrupt.c
++++ b/arch/powerpc/platforms/xenon/interrupt.c
+@@ -287,6 +287,16 @@
+ 
+ 		iic_base = ioremap(res.start, 0x10000);
+ 
++		/*
++		 * The interrupt controller is handled here and never gets a
++		 * platform device. Mark it as populated so generic code that
++		 * calls of_platform_populate() on a missing node (for example
++		 * the MTD partition parser, which uses the DT root when there
++		 * is no "partitions" node) cannot instantiate it as a child
++		 * of an unrelated device.
++		 */
++		of_node_set_flag(dn, OF_POPULATED);
++
+ 		host = irq_domain_add_linear(NULL, XENON_NR_IRQS, &xenon_irq_host_ops, NULL);
+ 		host->host_data = of_node_get(dn);
+ 		BUG_ON(host == NULL);
